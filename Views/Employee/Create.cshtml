@@ -1,0 +1,49 @@
+﻿@model EvidenceExam.Models.ViewModel.EmployeeVM
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<div>
+    @using (Html.BeginForm("Create", "Employee", FormMethod.Post, new
+    {
+        enctype =
+   "multipart/form-data"
+    }))
+    {
+        <div>
+            @Html.Label("EmployeeName")
+            @Html.TextBoxFor(m => m.EmployeeName)
+        </div>
+        <div>
+            @Html.Label("Picture")
+            @Html.TextBoxFor(m => m.Picturefile, null, new { Type = "file" })
+        </div>
+        <div>
+            @Html.Label("Age")
+            @Html.TextBoxFor(m => m.Age, null, new { type = "number" })
+        </div>
+        <div>
+            @Html.Label("DateOfJoininng")
+            @Html.TextBoxFor(m => m.DateOfJoining, null, new { Type = "date" })
+        </div>
+        <div>
+            @Html.Label("IsActive")
+            @Html.EditorFor(m => m.EmployeeActive)
+        </div>
+        <div>
+            <div>
+                @Html.ActionLink("add More", "#", null, new { id = "addmore" })
+            </div>
+            <div id="container">
+                @Html.Action("AddNewProject", "Employee")
+            </div>
+        </div>
+        <div>
+            <input type="submit" value="Create" />
+        </div>
+    }
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

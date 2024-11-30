@@ -1,0 +1,134 @@
+﻿@model IEnumerable<EvidenceExam.Models.Employee>
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .employee-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 5px;
+            transition: transform 0.6s ease-in-out;
+        }
+
+            .employee-card:hover {
+                transform: scale(1.02);
+            }
+
+        .employee-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .employee-body {
+            padding: 15px;
+        }
+
+        .employee-footer {
+            padding: 10px;
+            background-color: #f1f1f1;
+            text-align: center;
+        }
+
+        .employee-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 10px auto;
+            display: block;
+        }
+
+        .project-table {
+            margin-top: 10px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+            .project-table th {
+                background-color: #f8f9fa;
+            }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="text-center mb-4">
+            <h1>Employee List</h1>
+            @Html.ActionLink("Add New Employee", "Create", null, new { @class = "btn btn-primary" })
+        </div>
+
+        <div class="row">
+            @foreach (var user in Model)
+            {
+                <div class="col-md-4">
+                    <div class="employee-card">
+                        <div class="employee-header">
+                            <h4>@Html.DisplayFor(u => user.EmployeeName)</h4>
+                            <small>ID: @Html.DisplayFor(u => user.EmployeeId)</small>
+                        </div>
+                        <div class="employee-body">
+                            <img src="@user.Picture" alt="Employee Image" class="employee-img">
+                            <p><strong>Age:</strong> @Html.DisplayFor(u => user.Age)</p>
+                            <p><strong>Joining Date:</strong> @Html.DisplayFor(u => user.DateOfJoining)</p>
+                            <p>
+                                <strong>Status:</strong>
+                                @if (user.EmployeeActive)
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Inactive</span>
+                                }
+                            </p>
+
+                            <!-- Project Details -->
+                            <div class="project-table">
+                                <h6>Projects:</h6>
+                                <table class="table table-bordered table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Project ID</th>
+                                            <th>Project Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var project in user.ProjectAssignments)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(p => project.ProjectId)</td>
+                                                <td>@Html.DisplayFor(p => project.Project.ProjectName)</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="employee-footer">
+                            @Html.ActionLink("Edit", "Edit", new { id = user.EmployeeId }, new { @class = "btn btn-warning btn-sm" })
+                            @Html.ActionLink("Delete", "Delete", new { id = user.EmployeeId }, new { @class = "btn btn-danger btn-sm" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</body>
+</html>

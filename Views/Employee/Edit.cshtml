@@ -1,0 +1,54 @@
+﻿@model EvidenceExam.Models.ViewModel.EmployeeVM
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm("Edit", "Employee", FormMethod.Post, new
+{
+    enctype =
+"multipart/form-data"
+}))
+{
+    <div>
+        <h2>Edit Employee</h2>
+        @Html.HiddenFor(u => u.EmployeeId)
+        <div>
+            @Html.Label("EmployeeName")
+            @Html.TextBoxFor(m => m.EmployeeName)
+        </div>
+        <div>
+            @Html.Label("Image")
+            @Html.TextBoxFor(m => m.Picturefile, null, new { Type = "file" })
+            <img src="@Model.Picturefile" width="40" />
+        </div>
+        <div>
+            @Html.Label("Age")
+            @Html.TextBoxFor(m => m.Age, null, new { type = "number" })
+        </div>
+        <div>
+            @Html.Label("Date")
+            @Html.TextBox("DateOfJoining", Model.DateOfJoining.ToString("yyyy-MM-dd"), null,
+           new { Type = "date" })
+        </div>
+        <div>
+            @Html.Label("IsActive")
+            @Html.EditorFor(m => m.EmployeeActive)
+        </div>
+        <div>
+            <div>
+                @Html.ActionLink("add More", "#", null, new { id = "addmore" })
+            </div>
+            <div id="container">
+                @Html.Action("AddNewProject", "Employee")
+
+            </div>
+        </div>
+        <div>
+            <input type="submit" value="Update Data" />
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

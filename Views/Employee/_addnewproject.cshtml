@@ -1,0 +1,9 @@
+﻿@model EvidenceExam.Models.Project
+<div id="remove-product">
+    <div>
+        @Html.DropDownListFor(p => p.ProjectId, ViewBag.project as SelectList, "--select")
+    </div>
+    <div>
+        @Html.ActionLink("remove", "", null, new { id = "removebtn" })
+    </div>
+</div>
